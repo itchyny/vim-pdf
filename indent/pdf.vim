@@ -3,7 +3,7 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/06/01 22:47:48.
+" Last Change: 2015/06/02 00:00:29.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -30,7 +30,7 @@ function! GetPDFIndent()
 
   let line = getline('.')
 
-  let pairs = [ [ '<<', '>>' ], [ '\<BT\>', '\<ET\>' ], [ '\<stream\>', '\<endstream\>' ] ]
+  let pairs = [ [ '<<', '>>' ], [ '\<BT\>', '\<ET\>' ] ]
 
   for pair in pairs
     if line =~# '^\s*' . pair[1]
