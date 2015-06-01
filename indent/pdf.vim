@@ -3,7 +3,7 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/06/02 00:00:29.
+" Last Change: 2015/06/02 00:01:39.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -66,10 +66,6 @@ function! GetPDFIndent()
 
   if line =~# '^\s*BT'
     return match(line, '\s*\zsBT') + &shiftwidth
-  endif
-
-  if line =~# '^\s*stream'
-    return match(line, '\s*\zsstream') + &shiftwidth
   endif
 
   return indent(prevnonblank(v:lnum - 1))
