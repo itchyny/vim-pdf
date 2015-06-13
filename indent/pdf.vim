@@ -3,7 +3,7 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/06/02 23:42:54.
+" Last Change: 2015/06/09 22:47:24.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -62,6 +62,30 @@ function! GetPDFIndent()
 
   if line =~# '<<' && line !~# '>>'
     return match(line, '.*\(<<.*\)*<< *\zs')
+  endif
+
+  if line =~# '^\s\+>>$'
+    let i = line('.') - 1
+    let depth = 0
+    while i
+      let line = getline(i)
+      if line =~# '>>'
+        let depth += 1
+      endif
+      if line =~# '<<'
+        let depth -= 1
+        if depth == 0
+          break
+        endif
+      endif
+      if line =~# '^\S'
+        break
+      endif
+      let i -= 1
+    endwhile
+    if i > 0 && line =~# '>>'
+      return match(line, '^\s*\zs')
+    endif
   endif
 
   if line =~# '^\s*BT'
