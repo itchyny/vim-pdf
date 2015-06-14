@@ -3,11 +3,8 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/06/14 08:27:34.
+" Last Change: 2015/06/14 08:28:45.
 " =============================================================================
-
-let s:save_cpo = &cpo
-set cpo&vim
 
 if exists('b:did_indent')
   finish
@@ -23,6 +20,9 @@ let b:undo_indent = 'setlocal indentexpr< indentkeys<'
 if exists('*GetPDFIndent')
   finish
 endif
+
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! GetPDFIndent()
 
