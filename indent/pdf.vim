@@ -3,7 +3,7 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/06/14 08:28:45.
+" Last Change: 2015/08/16 01:32:30.
 " =============================================================================
 
 if exists('b:did_indent')
@@ -49,21 +49,21 @@ function! GetPDFIndent()
             break
           endif
         endif
-        if line =~# '^\S'
-          break
-        endif
+        " if line =~# '^\S'
+        "   break
+        " endif
         let i -= 1
       endwhile
       if i > 0 && line =~# pair[0]
-        return match(line, '^.*\zs' . pair[0])
+        return indent(i)
       endif
     endif
   endfor
 
-  let line = getline(line('.') - 1)
+  let line = getline(prevnonblank(v:lnum - 1))
 
   if line =~# '<<' && line !~# '>>'
-    return match(line, '.*\(<<.*\)*<< *\zs')
+    return indent(prevnonblank(v:lnum - 1)) + &shiftwidth
   endif
 
   if line =~# '^\s\+>>$'
@@ -85,8 +85,8 @@ function! GetPDFIndent()
       endif
       let i -= 1
     endwhile
-    if i > 0 && line =~# '>>'
-      return match(line, '^\s*\zs')
+    if i > 0 && line =~# '>>\|<<'
+      return indent(i)
     endif
   endif
 
