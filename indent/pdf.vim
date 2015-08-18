@@ -3,7 +3,7 @@
 " Filename: indent/pdf.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/08/16 01:32:30.
+" Last Change: 2015/08/18 09:03:55.
 " =============================================================================
 
 if exists('b:did_indent')
@@ -88,10 +88,6 @@ function! GetPDFIndent()
     if i > 0 && line =~# '>>\|<<'
       return indent(i)
     endif
-  endif
-
-  if line =~# '^\s*BT'
-    return match(line, '\s*\zsBT') + &shiftwidth
   endif
 
   return indent(prevnonblank(v:lnum - 1))
